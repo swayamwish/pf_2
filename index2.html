@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudhanshu Pandey - SDE Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #F0F8FF; /* AliceBlue */
+            color: #1E293B; /* Slate-800 */
+            overflow-x: hidden;
+        }
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .content-section {
+            padding: 100px 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0; /* Initially hidden for animation */
+            transform: translateY(50px);
+        }
+        .card.is-visible {
+             opacity: 1;
+             transform: translateY(0);
+        }
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .btn-mello {
+            background-color: #00D1FF;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            border-radius: 9999px;
+            padding: 0.75rem 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 209, 255, 0.4);
+        }
+        .btn-mello:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 209, 255, 0.6);
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        .project-container {
+            width: 100%;
+            max-width: 1000px;
+            height: 500px;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <canvas id="bg-canvas"></canvas>
+
+    <nav class="navbar fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-center items-center">
+            <div class="flex space-x-8">
+                <a href="#about" class="text-gray-600 hover:text-black transition font-semibold">About</a>
+                <a href="#projects" class="text-gray-600 hover:text-black transition font-semibold">Projects</a>
+                <a href="#skills" class="text-gray-600 hover:text-black transition font-semibold">Skills</a>
+                <a href="#achievements" class="text-gray-600 hover:text-black transition font-semibold">Achievements</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="content-section text-center">
+            <h1 class="font-poppins text-6xl md:text-8xl font-extrabold text-gray-800 leading-tight mb-4 animate-bounce">
+                SUDHANSHU PANDEY
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-500 mb-8">
+                Software Developer & Creative Coder
+            </p>
+            <a href="#projects" class="btn-mello">
+                Check Out My Work!
+            </a>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="content-section">
+            <div class="card max-w-4xl w-full">
+                <h2 class="font-poppins text-4xl font-bold text-center mb-8">About Me</h2>
+                <p class="text-lg text-center text-gray-600 mb-6">
+                    I'm a Computer Science student at IIIT Bhagalpur, passionate about building cool things with code. From competitive programming challenges to full-stack web applications, I love bringing ideas to life and solving complex problems in creative ways.
+                </p>
+                <div class="mt-8 flex justify-center flex-wrap gap-6">
+                     <a href="https://github.com/swayamwish" target="_blank" title="GitHub" class="text-gray-500 hover:text-black transition"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.838 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.65.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg></a>
+                    <a href="https://www.linkedin.com/in/sudhanshu-pandey-25568921a/" target="_blank" title="LinkedIn" class="text-gray-500 hover:text-black transition"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 114.128 0c0 1.14-.931 2.065-2.065 2.065zm1.782 13.019H3.557V9h3.562v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" /></svg></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="content-section">
+            <h2 class="font-poppins text-4xl font-bold text-center mb-12">My Projects</h2>
+            <div class="project-container">
+                <!-- 3D Projects will be injected here -->
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="content-section">
+            <div class="card max-w-4xl w-full">
+                <h2 class="font-poppins text-4xl font-bold text-center mb-8">My Toolkit</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-3">Languages</h3>
+                        <div class="flex flex-wrap gap-3"><span class="skill-tag">C/C++</span><span class="skill-tag">Python</span><span class="skill-tag">JavaScript</span><span class="skill-tag">TypeScript</span></div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-3">Frameworks & Libraries</h3>
+                        <div class="flex flex-wrap gap-3"><span class="skill-tag">React</span><span class="skill-tag">Next.js</span><span class="skill-tag">Node.js</span><span class="skill-tag">Express.js</span><span class="skill-tag">Tailwind CSS</span></div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-3">Databases & Tools</h3>
+                        <div class="flex flex-wrap gap-3"><span class="skill-tag">MongoDB</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">Git/GitHub</span><span class="skill-tag">Docker</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="content-section">
+            <div class="card max-w-4xl w-full">
+                <h2 class="font-poppins text-4xl font-bold text-center mb-8">Achievements</h2>
+                <ul class="list-disc list-inside text-lg space-y-3 text-gray-600">
+                    <li><strong>Guardian (2268)</strong> on LeetCode & <strong>Expert (1671)</strong> on Codeforces.</li>
+                    <li><strong>Top 0.45%</strong> Globally in LeetCode Weekly Contest 416.</li>
+                    <li><strong>Regionalist</strong> at ICPC (Top 400/48,000+).</li>
+                    <li><strong>Finalist</strong> in coding contests at IIT Madras & IIT Ropar.</li>
+                    <li>Solved over <strong>2000+</strong> coding problems.</li>
+                    <li><strong>Top 5</strong> finish in the Smart India Hackathon.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <footer class="text-center py-10">
+            <p class="text-gray-500">&copy; 2024 Sudhanshu Pandey</p>
+             <a href="mailto:swayamwish@gmail.com" class="text-gray-500 hover:text-black transition">swayamwish@gmail.com</a>
+        </footer>
+    </main>
+
+    <script>
+        // --- BACKGROUND THREE.JS SCENE ---
+        const bgScene = new THREE.Scene();
+        const bgCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const bgRenderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true });
+        bgRenderer.setSize(window.innerWidth, window.innerHeight);
+        bgCamera.position.z = 5;
+
+        const shapes = [];
+        const shapeGeometries = [new THREE.TetrahedronGeometry(0.3), new THREE.BoxGeometry(0.5, 0.5, 0.5)];
+        const shapeMaterial = new THREE.MeshStandardMaterial({ color: 0x00D1FF, transparent: true, opacity: 0.1, roughness: 0.5 });
+
+        for (let i = 0; i < 50; i++) {
+            const geom = shapeGeometries[Math.floor(Math.random() * shapeGeometries.length)];
+            const shape = new THREE.Mesh(geom, shapeMaterial);
+            shape.position.set((Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20);
+            shape.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+            shapes.push(shape);
+            bgScene.add(shape);
+        }
+
+        const bgLight = new THREE.DirectionalLight(0xffffff, 1);
+        bgLight.position.set(1, 1, 1);
+        bgScene.add(bgLight);
+
+        function animateBg() {
+            requestAnimationFrame(animateBg);
+            shapes.forEach(shape => {
+                shape.rotation.x += 0.005;
+                shape.rotation.y += 0.005;
+                shape.position.y += 0.01;
+                if (shape.position.y > 10) shape.position.y = -10;
+            });
+            bgRenderer.render(bgScene, bgCamera);
+        }
+        animateBg();
+
+        // --- PROJECTS THREE.JS SCENE ---
+        function initProjectScene() {
+            const projectContainer = document.querySelector('.project-container');
+            if (!projectContainer) return;
+
+            const projectScene = new THREE.Scene();
+            const projectCamera = new THREE.PerspectiveCamera(75, projectContainer.clientWidth / projectContainer.clientHeight, 0.1, 1000);
+            const projectRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            projectRenderer.setSize(projectContainer.clientWidth, projectContainer.clientHeight);
+            projectContainer.appendChild(projectRenderer.domElement);
+            projectCamera.position.z = 6;
+
+            const pLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            pLight.position.set(1, 2, 3);
+            projectScene.add(pLight);
+            projectScene.add(new THREE.AmbientLight(0xffffff, 0.8));
+
+            const projects = [
+                { name: "Logic Pad", link: "https://logic-pad-khaki.vercel.app/" },
+                { name: "Atom Insight", link: "https://periodic-table-virid-six.vercel.app/" },
+                { name: "Cyberverse", link: "https://cyberverse-sv6r.vercel.app/" }
+            ];
+            const projectGroup = new THREE.Group();
+
+            function createMelloHead(project) {
+                const head = new THREE.Group();
+                const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.2 });
+                const bodyGeom = new THREE.CylinderGeometry(1, 1, 1.2, 32);
+                const body = new THREE.Mesh(bodyGeom, bodyMaterial);
+                head.add(body);
+
+                const eyeMaterial = new THREE.MeshBasicMaterial({ color: 0x111111 });
+                const eyeGeom = new THREE.PlaneGeometry(0.2, 0.4);
+                const eye1 = new THREE.Mesh(eyeGeom, eyeMaterial);
+                eye1.position.set(-0.3, 0.2, 1.01);
+                head.add(eye1);
+                const eye2 = eye1.clone();
+                eye2.position.x = 0.3;
+                head.add(eye2);
+
+                const mouthGeom = new THREE.PlaneGeometry(0.6, 0.2);
+                const mouth = new THREE.Mesh(mouthGeom, eyeMaterial);
+                mouth.position.set(0, -0.2, 1.01);
+                head.add(mouth);
+                
+                head.userData.link = project.link;
+                head.userData.isHovered = false;
+                return head;
+            }
+
+            projects.forEach((project, i) => {
+                const mello = createMelloHead(project);
+                const angle = (i / projects.length) * Math.PI * 2;
+                mello.position.set(3.5 * Math.cos(angle), 0, 3.5 * Math.sin(angle));
+                projectGroup.add(mello);
+            });
+            projectScene.add(projectGroup);
+
+            const raycaster = new THREE.Raycaster();
+            const mouse = new THREE.Vector2();
+            let intersected;
+
+            projectContainer.addEventListener('mousemove', (event) => {
+                const rect = projectContainer.getBoundingClientRect();
+                mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+                mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+            });
+            
+            projectContainer.addEventListener('click', () => {
+                 if (intersected) window.open(intersected.userData.link, '_blank');
+            });
+
+            function animateProjects() {
+                requestAnimationFrame(animateProjects);
+                projectGroup.rotation.y += 0.003;
+                
+                const time = Date.now() * 0.005;
+                projectGroup.children.forEach((mello, i) => {
+                    if (!mello.userData.isHovered) {
+                        mello.position.y = Math.abs(Math.sin(time + i * 2)) * 0.5 - 0.25;
+                        mello.rotation.z = Math.sin(time + i * 2) * 0.2;
+                    }
+                });
+
+                raycaster.setFromCamera(mouse, projectCamera);
+                const intersects = raycaster.intersectObjects(projectGroup.children, true);
+
+                if (intersects.length > 0) {
+                    const mainHead = intersects[0].object.parent;
+                    if (intersected !== mainHead) {
+                        if(intersected) {
+                            intersected.userData.isHovered = false;
+                            gsap.to(intersected.scale, {x: 1, y: 1, z: 1, duration: 0.5, ease: 'power3.out'});
+                        }
+                        intersected = mainHead;
+                        intersected.userData.isHovered = true;
+                        gsap.timeline()
+                            .to(intersected.position, { y: 0.5, duration: 0.2, ease: 'power2.out' })
+                            .to(intersected.position, { y: 0, duration: 0.3, ease: 'power2.in' });
+                        gsap.to(intersected.scale, {x: 1.2, y: 1.2, z: 1.2, duration: 0.5, ease: 'power3.out'});
+                        projectContainer.style.cursor = 'pointer';
+                    }
+                } else {
+                    if(intersected) {
+                        intersected.userData.isHovered = false;
+                        gsap.to(intersected.scale, {x: 1, y: 1, z: 1, duration: 0.5, ease: 'power3.out'});
+                        intersected = null;
+                        projectContainer.style.cursor = 'default';
+                    }
+                }
+
+                projectRenderer.render(projectScene, projectCamera);
+            }
+            animateProjects();
+
+            window.addEventListener('resize', () => {
+                projectCamera.aspect = projectContainer.clientWidth / projectContainer.clientHeight;
+                projectCamera.updateProjectionMatrix();
+                projectRenderer.setSize(projectContainer.clientWidth, projectContainer.clientHeight);
+            });
+        }
+        
+        // --- SCROLL & UI LOGIC ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card').forEach(card => {
+            observer.observe(card);
+        });
+
+        const mainContent = document.querySelector('main');
+        mainContent.addEventListener('scroll', () => {
+            const scrollFraction = mainContent.scrollTop / (mainContent.scrollHeight - window.innerHeight);
+            bgScene.rotation.y = scrollFraction * Math.PI * 0.5;
+            bgScene.rotation.x = scrollFraction * Math.PI * 0.2;
+        });
+
+        window.onload = initProjectScene;
+
+    </script>
+</body>
+</html>
